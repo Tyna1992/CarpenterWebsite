@@ -11,9 +11,8 @@ import ListItemText from '@mui/material/ListItemText';
 import navBarItems from './NavBarItems.jsx';
 import {useNavigate} from "react-router-dom";
 
-
 function NavBar() {
-    const drawerWidth = 200;
+    const drawerWidth = 220;
     const navigate = useNavigate();
     return (
         <Drawer
