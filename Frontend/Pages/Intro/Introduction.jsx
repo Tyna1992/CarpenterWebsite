@@ -1,15 +1,15 @@
 ﻿import Grid from '@mui/material/Grid';
-import CommonButton from "../../Components/Common/CommonButton/CommonButton.jsx";
+
 
 function Introduction() {
   return (
-    <Grid item xs={8}>
-      <h1>Welcome to the React World</h1>
+    <Grid item xs={8} sx={{paddingTop: "8rem"}}>
+      <h1>Kedves Látogató!</h1>
       <p>
-        React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.
-          
+          Kisgyerek korom óta foglalkozom az asztalossággal, 2020 nyarán pedig létrehoztam kis vállalkozásomat, igyekezve minden megrendelést, segítségkérést kielégíteni, legyen az bútor összeszerelés, javítás, kis ajándék készítés, vagy egy egész konyhabútor gyártása 🙂
+          Foglalkozom tömörfa bútorok, -tárgyak készítésével, valamint a laminált faforgácslapos termékek gyártása sem jelent akadályt!
+          Törekszem a magas minőségű termékek előállítására, mind küllemre, mind szerkezetileg egyaránt! 
       </p>
-       <CommonButton variant="contained">Text</CommonButton>
     </Grid>
   );
 }
