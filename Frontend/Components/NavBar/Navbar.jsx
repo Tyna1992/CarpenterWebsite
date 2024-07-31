@@ -1,47 +1,29 @@
 ﻿// NavBar.jsx
 import React from 'react';
-import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import navBarItems from './NavBarItems.jsx';
-import {useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
+import {AppBar, IconButton, Stack,} from "@mui/material";
+import logo from "../../src/assets/306228688_758433841866003_14182572165906695_n-removebg-preview.png"
 
 function NavBar() {
-    const drawerWidth = 220;
+    
     const navigate = useNavigate();
-    return (
-        <Drawer
-            sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                    width: drawerWidth,
-                    boxSizing: 'border-box',
-                },
-            }}
-            variant="permanent"
-            anchor="left"
-        >
-            <Toolbar />
-            <Divider />
-            <List>
-                {navBarItems.map((item) => (
-                    <ListItem key={item.id} disablePadding>
-                        <ListItemButton onClick={()=> navigate(item.route)}>
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.label} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Drawer>
+    
+    
+    return (        
+        <AppBar position="fixed">
+            <Toolbar >
+                <IconButton size="medium" edge="start"  aria-label="menu" onClick={()=> navigate("/")}><img src={logo} alt="sdf" style={{width: "7rem", height: "7rem"}} /></IconButton>
+                <Stack spacing={{ xs: 1, sm: 6 }} direction="row" useFlexGap flexWrap="wrap">
+                    {navBarItems.map((item) => (
+                        <Button key={item.id}  size="medium" variant="contained" startIcon={item.icon} onClick={() => navigate(item.route)}>{item.label}</Button>
+                    ))}
+                </Stack>
+            </Toolbar>
+        </AppBar>
+            
     );
 }
 
