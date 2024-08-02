@@ -14,7 +14,7 @@ const navBarItems = [
         id: 0,
         icon: <HomeSharpIcon />,
         label: "Bemutatkozó",
-        route: "bemutatkozó"
+        route: "bemutatkozo"
     },
     {
         id: 1,
@@ -26,31 +26,31 @@ const navBarItems = [
         id: 2,
         icon: <FilterSharpIcon />,
         label: "Galéria",
-        route: "galéria"
+        route: "galeria"
     },
     {
         id: 3,
         icon: <LocalOfferSharpIcon />,
         label: "Árlista",
-        route: "árlista"
+        route: "arlista"
     },
     {
         id: 4,
         icon: <InfoSharpIcon />,
         label: "Tájékozató",
-        route: "tájékozató"
+        route: "tajekozato"
     },
     {
         id: 5,
         icon: <ChairSharpIcon />,
         label: "Bútor-kisokos",
-        route: "bútor-kisokos"
+        route: "butor-kisokos"
     },
     {
         id: 6,
         icon: <NewspaperSharpIcon />,
         label: "Hírek",
-        route: "hírek"
+        route: "hirek"
     },
     {
         id: 7,
@@ -62,7 +62,7 @@ const navBarItems = [
         id: 8,
         icon: <StarRateSharpIcon />,
         label: "Értékelések",
-        route: "vélemények"
+        route: "velemenyek"
     }
 ];
 
