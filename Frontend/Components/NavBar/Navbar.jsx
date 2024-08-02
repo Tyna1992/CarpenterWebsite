@@ -4,15 +4,15 @@ import Toolbar from '@mui/material/Toolbar';
 import navBarItems from './NavBarItems.jsx';
 import { useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
-import {AppBar, IconButton, Stack,} from "@mui/material";
+import {AppBar, BottomNavigation, BottomNavigationAction, IconButton, Stack,} from "@mui/material";
 import logo from "../../src/assets/306228688_758433841866003_14182572165906695_n-removebg-preview.png"
+
 
 function NavBar() {
     
     const navigate = useNavigate();
     
-    
-    return (        
+    return (
         <AppBar position="fixed">
             <Toolbar >
                 <IconButton size="medium" edge="start"  aria-label="menu" onClick={()=> navigate("/")}><img src={logo} alt="sdf" style={{width: "7rem", height: "7rem"}} /></IconButton>
@@ -23,7 +23,6 @@ function NavBar() {
                 </Stack>
             </Toolbar>
         </AppBar>
-            
     );
 }
 
