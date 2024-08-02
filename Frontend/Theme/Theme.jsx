@@ -1,4 +1,5 @@
 ﻿import { createTheme } from '@mui/material/styles';
+import backgroundImage from "../src/assets/background.jpg"
 
 const primaryColor = '#8B5E3C'; // Rich brown color
 const secondaryColor = '#D8A165'; // Lighter wood color
@@ -12,7 +13,7 @@ const theme = createTheme({
             main: secondaryColor,
         },
         background: {
-            default: '#F5F5F5', // Light grey
+            default: '#FAF3E0', // Light grey
             paper: '#FFFFFF', // White for paper elements
         },
         text: {
@@ -26,27 +27,34 @@ const theme = createTheme({
             fontFamily: `'Merriweather', serif`,
             fontWeight: 700,
             fontSize: '3rem',
-            color: '#3E2723',
+            color: '#593835',
         },
         h2: {
             fontFamily: `'Merriweather', serif`,
             fontWeight: 700,
-            fontSize: '2.5rem',
+            fontSize: '2rem',
             color: '#3E2723',
         },
+        p:{
+            fontFamily: `'Roboto', sans-serif`,
+            fontWeight: 400,
+            fontSize: '1.5rem',
+            color: '#fbf4f5',
+        },
         body1: {
+            fontFamily: `'Roboto', sans-serif`,
+            fontWeight: 700,
+            fontSize: '1.5rem',
+            color: '#1a1a1a',
+        },
+        body2: {
             fontFamily: `'Roboto', sans-serif`,
             fontWeight: 400,
             fontSize: '1rem',
             color: '#5D4037',
         },
-        body2: {
-            fontFamily: `'Roboto', sans-serif`,
-            fontWeight: 400,
-            fontSize: '0.875rem',
-            color: '#5D4037',
-        },
     },
+        
     components: {
         MuiButton: {
             styleOverrides: {
@@ -72,7 +80,7 @@ const theme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: primaryColor,
+                    backgroundColor: "rgba(139,94,60,0.7)",
                     height: "15dvh",
                     width: "100dvw",
                     justifyContent: "center",
@@ -113,7 +121,7 @@ const theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    padding: '16px',
+                    
                 },
             },
         },
@@ -125,6 +133,40 @@ const theme = createTheme({
                 },
             },
         },
+        MuiGrid:{
+            styleOverrides:{
+                root:{
+                    paddingLeft: "1rem",
+                    paddingRight: "1rem",
+                    textAlign: "center",
+                    justifyContent: "center"
+                    
+                    
+                }
+            }
+        },
+        MuiAccordion:{
+            styleOverrides:{
+                root:{
+                    backgroundColor: "rgba(208,165,130,0.54)",
+                    
+                }
+            }
+        },
+        MuiCssBaseline:{
+            styleOverrides:{
+                body:{
+                    backgroundImage: `url(${backgroundImage})`,
+                    overflowY: "scroll"
+                    // backgroundSize: "cover",
+                    // backgroundRepeat: "no-repeat",
+                    // backgroundPosition: "center",
+                    // width: '100%',
+                    // minHeight: '100vh',
+                }
+            }
+        }
+        
     },
 });
 
