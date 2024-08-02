@@ -9,25 +9,29 @@ import {CssBaseline, ThemeProvider} from "@mui/material";
 import theme from "../Theme/Theme.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <BrowserRouter>
+                
                 <Routes>
                     <Route path="/" element={<App/>}>
                         <Route path="/" element={<Home/>}/>
-                        <Route path="bemutatkozó" element={<Introduction/>}/>
+                        <Route path="bemutatkozo" element={<Introduction/>}/>
                         <Route path="partnerek" element=""/>
-                        <Route path="galéria" element={<Gallery/>}/>
-                        <Route path="árlista" element=""/>
-                        <Route path="tájékozató" element=""/>
-                        <Route path="bútor-kisokos" element=""/>
-                        <Route path="hírek" element=""/>
+                        <Route path="galeria" element={<Gallery/>}/>
+                        <Route path="arlista" element=""/>
+                        <Route path="tajékozato" element=""/>
+                        <Route path="butor-kisokos" element=""/>
+                        <Route path="hirek" element=""/>
                         <Route path="kapcsolat" element={<Contact/>}/>
-                        <Route path="vélemények" element=""/>
+                        <Route path="velemenyek" element=""/>
                     </Route>
                 </Routes>
+            
             </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>
