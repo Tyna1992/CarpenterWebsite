@@ -8,6 +8,7 @@ import Home from "../Pages/Home/Home.jsx";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import theme from "../Theme/Theme.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
+import Pricelist from "../Pages/Pricelist/Pricelist.jsx";
 
 
 
@@ -23,12 +24,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         <Route path="bemutatkozo" element={<Introduction/>}/>
                         <Route path="partnerek" element=""/>
                         <Route path="galeria" element={<Gallery/>}/>
-                        <Route path="arlista" element=""/>
+                        <Route path="arlista" element={<Pricelist/>}/>
                         <Route path="tajékozato" element=""/>
                         <Route path="butor-kisokos" element=""/>
                         <Route path="hirek" element=""/>
                         <Route path="kapcsolat" element={<Contact/>}/>
                         <Route path="velemenyek" element=""/>
+                        
                     </Route>
                 </Routes>
             
