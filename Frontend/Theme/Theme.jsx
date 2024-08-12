@@ -80,7 +80,7 @@ const theme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "rgba(139,94,60,0.7)",
+                    backgroundColor: "rgba(139,94,60,0.9)",
                     height: "15dvh",
                     width: "100dvw",
                     justifyContent: "center",
@@ -139,10 +139,11 @@ const theme = createTheme({
                     paddingLeft: "1rem",
                     paddingRight: "1rem",
                     textAlign: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    borderRadius: "8px",                   
                     
-                    
-                }
+                },
+                
             }
         },
         MuiAccordion:{
