@@ -5,7 +5,7 @@ import navBarItems from './NavBarItems.jsx';
 import { useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {AppBar, BottomNavigation, BottomNavigationAction, IconButton, Stack,} from "@mui/material";
-import logo from "../../src/assets/306228688_758433841866003_14182572165906695_n-removebg-preview.png"
+import logo from "../../assets/306228688_758433841866003_14182572165906695_n-removebg-preview.png"
 
 
 function NavBar() {
