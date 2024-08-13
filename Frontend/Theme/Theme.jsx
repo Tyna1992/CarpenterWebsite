@@ -166,7 +166,27 @@ const theme = createTheme({
                     // minHeight: '100vh',
                 }
             }
-        }
+        },
+        MuiTableContainer:{
+            styleOverrides:{
+                root:{
+                    backgroundColor: "rgba(129,95,53,0.9)",
+                    borderRadius: "8px",
+                    
+                }
+            }
+        },
+        MuiTableBody:{
+            styleOverrides:{
+                root:{
+                    backgroundColor: "rgba(216,161,101,0.8)",
+                    borderRadius: "8px",
+                   
+                    
+                    
+                }
+            }
+        },
         
     },
 });
