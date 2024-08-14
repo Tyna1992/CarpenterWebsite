@@ -91,7 +91,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     display: 'flex',
-                    justifyContent: 'space-around',
+                    justifyContent: 'space-evenly',
                 },
             },
         },
