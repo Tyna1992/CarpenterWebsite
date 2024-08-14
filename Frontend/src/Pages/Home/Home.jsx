@@ -1,11 +1,14 @@
 ﻿import Grid from "@mui/material/Grid";
-import StarRatings from "../../Components/Rating/Ratings.jsx";
+import Introduction from "../Intro/Introduction.jsx";
+import Carousel from "../../Components/Carousel/ImageCarousel.jsx";
 
 function Home(){
     return(
-        <Grid item sx={{paddingTop:"8rem"}}>
-            <h1>Home</h1>
-            <StarRatings/>
+        <Grid container sx={{ minHeight: "100vh", justifyContent: "center", alignItems: "center", paddingTop: "10rem" }}>
+            <Carousel/>
+            <Introduction/>
+            
+            
         </Grid>
     )
 }
