@@ -23,11 +23,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path="/" element={<App/>}>
                         <Route path="/" element={<Home/>}/>
-                        <Route path="bemutatkozo" element={<Introduction/>}/>
                         <Route path="partnerek" element={<Suppliers/>}/>
                         <Route path="galeria" element={<Gallery/>}/>
                         <Route path="arlista" element={<Pricelist/>}/>
-                        <Route path="tajékozato" element=""/>
+                        <Route path="tajekozato" element=""/>
                         <Route path="butor-kisokos" element=""/>
                         <Route path="hirek" element=""/>
                         <Route path="kapcsolat" element={<Contact/>}/>
