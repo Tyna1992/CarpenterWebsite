@@ -3,7 +3,7 @@
 
 function Introduction() {
   return (
-      <Grid container sx={{paddingTop: "10rem"}}>
+      <Grid container >
           <Grid item xs={8} sx={{backgroundColor: "rgba(216,161,101,0.6)", borderRadius: "8px"}}>
               <h1>Kedves Látogató!</h1>
               <p>
