@@ -11,12 +11,6 @@ import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 
 const navBarItems = [
     {
-        id: 0,
-        icon: <HomeSharpIcon />,
-        label: "Bemutatkozó",
-        route: "bemutatkozo"
-    },
-    {
         id: 1,
         icon: <HandshakeSharpIcon />,
         label: "Partnerek",
