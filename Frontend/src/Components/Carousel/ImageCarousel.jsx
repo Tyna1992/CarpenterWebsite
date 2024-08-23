@@ -3,7 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 import { carouselData } from "./CarouselData.jsx";
 
-function Carousel(props) {
+function ImageCarousel(props) {
     function Item(props) {
         return (
             <Paper sx={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#8A6D56", width: "60dvw", height: "70dvh" }}>
@@ -26,4 +26,4 @@ function Carousel(props) {
     );
 }
 
-export default Carousel;
+export default ImageCarousel;
