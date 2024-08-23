@@ -1,14 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Introduction from "../Pages/Intro/Introduction.jsx";
-import Gallery from "../Pages/Gallery/Gallery.jsx";
-import Home from "../Pages/Home/Home.jsx";
+import Introduction from "./Pages/Intro/Introduction.jsx";
+import Gallery from "./Pages/Gallery/Gallery.jsx";
+import Home from "./Pages/Home/Home.jsx";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import theme from "../Theme/Theme.jsx";
-import Contact from "../Pages/Contact/Contact.jsx";
-import Pricelist from "../Pages/Pricelist/Pricelist.jsx";
+import Contact from "./Pages/Contact/Contact.jsx";
+import Pricelist from "./Pages/Pricelist/Pricelist.jsx";
+import Suppliers from "./Pages/Partners/Suppliers.jsx";
+import ClientRatings from "./Pages/Ratings/ClientRatings.jsx";
+import App from "./App.jsx";
 
 
 
@@ -21,15 +23,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path="/" element={<App/>}>
                         <Route path="/" element={<Home/>}/>
-                        <Route path="bemutatkozo" element={<Introduction/>}/>
-                        <Route path="partnerek" element=""/>
+                        <Route path="partnerek" element={<Suppliers/>}/>
                         <Route path="galeria" element={<Gallery/>}/>
                         <Route path="arlista" element={<Pricelist/>}/>
-                        <Route path="tajékozato" element=""/>
+                        <Route path="tajekozato" element=""/>
                         <Route path="butor-kisokos" element=""/>
                         <Route path="hirek" element=""/>
                         <Route path="kapcsolat" element={<Contact/>}/>
-                        <Route path="velemenyek" element=""/>
+                        <Route path="velemenyek" element={<ClientRatings/>}/>
                         
                     </Route>
                 </Routes>
