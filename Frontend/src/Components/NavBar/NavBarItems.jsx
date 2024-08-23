@@ -7,7 +7,7 @@ import ChairSharpIcon from '@mui/icons-material/ChairSharp';
 import NewspaperSharpIcon from '@mui/icons-material/NewspaperSharp';
 import AlternateEmailSharpIcon from '@mui/icons-material/AlternateEmailSharp';
 import StarRateSharpIcon from '@mui/icons-material/StarRateSharp';
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+
 
 const navBarItems = [
     {
