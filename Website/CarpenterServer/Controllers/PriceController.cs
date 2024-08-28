@@ -9,7 +9,7 @@ namespace CarpenterServer.Controllers;
 [Route("api/[controller]")]
 public class PriceController : ControllerBase
 {
-    public readonly IPriceRepository _priceRepository;
+    private readonly IPriceRepository _priceRepository;
 
     public PriceController(IPriceRepository priceRepository)
     {
