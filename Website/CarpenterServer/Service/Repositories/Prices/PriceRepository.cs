@@ -21,7 +21,7 @@ public class PriceRepository : IPriceRepository
 
     public async Task<Pricelist> GetPriceByJob(string job)
     {
-        var price = await _context.Pricelists.FindAsync(job);
+        var price = await _context.Pricelists.FirstOrDefaultAsync(price => price.Job == job);
         return price;
     }
 
@@ -32,12 +32,12 @@ public class PriceRepository : IPriceRepository
         return price;
     }
 
-    public async Task<Pricelist> UpdatePrice(string job, Pricelist price)
+    public async Task<Pricelist> UpdatePrice(string job, decimal price)
     {
-        var existingPrice = await _context.Pricelists.FindAsync(job);
+        var existingPrice = await _context.Pricelists.FirstOrDefaultAsync(jobs => jobs.Job == job);
         if (existingPrice != null)
         {
-            existingPrice.Price = price.Price;
+            existingPrice.Price = price;
             await _context.SaveChangesAsync();
         }
         return existingPrice;
@@ -45,7 +45,7 @@ public class PriceRepository : IPriceRepository
 
     public async Task DeletePrice(string job)
     {
-        var price = await _context.Pricelists.FindAsync(job);
+        var price = await _context.Pricelists.FirstOrDefaultAsync(jobs => jobs.Job == job);
         if (price != null)
         {
             _context.Pricelists.Remove(price);
