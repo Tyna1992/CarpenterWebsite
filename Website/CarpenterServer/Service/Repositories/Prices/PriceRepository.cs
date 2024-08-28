@@ -2,7 +2,7 @@
 using CarpenterServer.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarpenterServer.Service.Repositories;
+namespace CarpenterServer.Service.Repositories.Prices;
 
 public class PriceRepository : IPriceRepository
 {

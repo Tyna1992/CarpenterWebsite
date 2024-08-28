@@ -1,6 +1,6 @@
 ﻿using CarpenterServer.Model;
 
-namespace CarpenterServer.Service.Repositories;
+namespace CarpenterServer.Service.Repositories.Prices;
 
 public interface IPriceRepository
 {
