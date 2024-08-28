@@ -1,5 +1,6 @@
 using CarpenterServer.Data;
-using CarpenterServer.Service.Repositories;
+using CarpenterServer.Service.DatabaseSeeder;
+using CarpenterServer.Service.Repositories.Prices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -9,9 +10,12 @@ AddServices();
 AddDbContext();
 ConfigureSwagger();
 
-
-
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var seeder= scope.ServiceProvider.GetRequiredService<ISeeder>();
+await seeder.SeedPrices();
+await seeder.SeedReviews();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,6 +46,7 @@ void AddServices()
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddScoped<IPriceRepository, PriceRepository>();
+    builder.Services.AddScoped<ISeeder,Seeder>();
     
     
 }
