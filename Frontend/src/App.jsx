@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Footer from "./Components/Footer.jsx";
 import {Box} from "@mui/material";
 import NavBar from "./Components/NavBar/Navbar.jsx";
-
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
@@ -27,6 +27,10 @@ function App() {
                 <Outlet />
             </Box>
             <Footer />
+            <ToastContainer 
+                autoClose={2000}
+                pauseOnFocusLoss={false}
+                pauseOnHover={true} /> 
         </Box>
     );
 }
