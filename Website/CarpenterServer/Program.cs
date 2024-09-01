@@ -1,5 +1,6 @@
 using CarpenterServer.Data;
 using CarpenterServer.Service.DatabaseSeeder;
+using CarpenterServer.Service.EmailService;
 using CarpenterServer.Service.Repositories.Prices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -47,8 +48,9 @@ void AddServices()
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddScoped<IPriceRepository, PriceRepository>();
     builder.Services.AddScoped<ISeeder,Seeder>();
-    
-    
+    builder.Services.AddScoped<IEmailService, EmailService>();
+
+
 }
 
 void ConfigureSwagger()
