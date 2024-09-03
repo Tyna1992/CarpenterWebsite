@@ -43,33 +43,41 @@ public class AuthService : IAuthService
 
         var roles = await _userManager.GetRolesAsync(managedUser);
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
-        Console.WriteLine(accessToken);
-        return new AuthResult(true, managedUser.Email, accessToken);
+        return new AuthResult(true, managedUser.Email,managedUser.UserName, accessToken);
     }
     
     public JwtSecurityToken Verify(string token)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(_configuration.GetSection("IssuerSigningKey").Value);
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        try
         {
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuerSigningKey = true,
-            ValidateIssuer = false,
-            ValidateAudience = false,
-        }, out SecurityToken validatedToken);
-        return (JwtSecurityToken)validatedToken;
+            Console.WriteLine($"Verifying token: {token}");
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration.GetSection("IssuerSigningKey").Value);
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+            }, out SecurityToken validatedToken);
+            return (JwtSecurityToken)validatedToken;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception in Verify method: {ex}");
+            throw;
+        }
     }
     
     private static AuthResult InvalidUsername(string email)
     {
-        var result = new AuthResult(false, "", "");
+        var result = new AuthResult(false, "", "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid username");
         return result;
     }
     private static AuthResult InvalidPassword(string email)
     {
-        var result = new AuthResult(false, email, "");
+        var result = new AuthResult(false, email, "","");
         result.ErrorMessages.Add("Bad credentials", "Invalid password");
         return result;
     }
