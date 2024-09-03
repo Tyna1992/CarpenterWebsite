@@ -11,6 +11,9 @@ import Pricelist from "./Pages/Pricelist/Pricelist.jsx";
 import Suppliers from "./Pages/Partners/Suppliers.jsx";
 import ClientRatings from "./Pages/Ratings/ClientRatings.jsx";
 import App from "./App.jsx";
+import AdminLogin from "./Pages/Admin/AdminLogin.jsx";
+import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
+import RouteProtector from "./Components/RouteProtector/RouteProtector.jsx";
 
 
 
@@ -31,10 +34,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         <Route path="hirek" element=""/>
                         <Route path="kapcsolat" element={<Contact/>}/>
                         <Route path="velemenyek" element={<ClientRatings/>}/>
-                        
+                        <Route path="titkosAdminLogin" element={<AdminLogin/>}/>
+                        <Route path="titkosAdminDashboard" element={<RouteProtector item={<AdminDashboard/>}/>}/>
                     </Route>
                 </Routes>
-            
             </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>
