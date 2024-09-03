@@ -36,6 +36,7 @@ function App() {
         fetchData();
     }, [location.pathname]);
 
+    const isAdmin = user && user.username === "admin";
     
     return (
         <UserContext.Provider value={{user, setUser}}>
@@ -46,7 +47,7 @@ function App() {
                 minHeight: '100vh',
             }}
         >
-            {user.username !== "admin" ?<Navbar /> : ""}
+            {!isAdmin && <Navbar />}
             <Box
                 component="main"
                 sx={{
@@ -55,7 +56,7 @@ function App() {
             >
                 <Outlet />
             </Box>
-            <Footer />
+            {!isAdmin && <Footer />}
             <ToastContainer 
                 autoClose={2000}
                 pauseOnFocusLoss={false}
