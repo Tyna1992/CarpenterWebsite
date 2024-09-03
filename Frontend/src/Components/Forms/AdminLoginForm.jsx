@@ -83,6 +83,7 @@ function AdminLoginForm()
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            type="password"
                         />
                     </Grid>
                     <Grid item xs={12}>
