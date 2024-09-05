@@ -1,6 +1,7 @@
 ﻿using CarpenterServer.Model;
 using CarpenterServer.Service.Repositories;
 using CarpenterServer.Service.Repositories.Prices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarpenterServer.Controllers;
@@ -16,7 +17,7 @@ public class PriceController : ControllerBase
         _priceRepository = priceRepository;
     }
 
-    [HttpGet("GetAllPrices")]
+    [HttpGet("GetAllPrices"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Pricelist>>> GetAllPrices()
     {
         var prices = await _priceRepository.GetAllPrices();
@@ -42,10 +43,11 @@ public class PriceController : ControllerBase
         return CreatedAtAction(nameof(GetPriceByJob), new { job = newPrice.Job }, newPrice);
     }
     
-    [HttpPut("UpdatePrice/{job}/{price}")]
-    public async Task<ActionResult> UpdatePrice(string job, decimal price)
+    [HttpPut("UpdatePrice")]
+    public async Task<ActionResult> UpdatePrice([FromBody] Pricelist editedPrice)
     {
-        var updatedPrice = await _priceRepository.UpdatePrice(job, price);
+        var updatedPrice = await _priceRepository.UpdatePrice(editedPrice.Job, editedPrice.Price);
+        
         return Ok(updatedPrice);
     }
     
