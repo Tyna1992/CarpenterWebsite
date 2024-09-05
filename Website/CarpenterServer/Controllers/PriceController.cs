@@ -54,8 +54,25 @@ public class PriceController : ControllerBase
     [HttpDelete("DeletePrice/{job}")]
     public async Task<ActionResult> DeletePrice(string job)
     {
-        await _priceRepository.DeletePrice(job);
-        return NoContent();
+        try
+        {
+            Console.WriteLine($"Deleting job '{job}'");
+            var result = await _priceRepository.DeletePrice(job);
+            if (result)
+            {
+                return NoContent(); 
+            }
+            else
+            {
+                return NotFound($"Job '{job}' not found."); // 404 if job is not found
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the exception details for debugging
+            Console.WriteLine($"Error deleting job '{job}': {ex.Message}");
+            return StatusCode(500, "An error occurred while deleting the job."); // 500 Internal Server Error for unexpected errors
+        }
     }
     
     
