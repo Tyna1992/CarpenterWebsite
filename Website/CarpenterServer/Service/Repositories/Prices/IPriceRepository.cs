@@ -8,6 +8,6 @@ public interface IPriceRepository
     public Task<Pricelist> GetPriceByJob(string job);
     public Task<Pricelist> AddPrice(Pricelist price);
     public Task<Pricelist> UpdatePrice(string job, decimal price);
-    public Task DeletePrice(string job);
+    public Task<bool> DeletePrice(string job);
     
 }
