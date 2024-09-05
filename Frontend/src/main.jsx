@@ -14,6 +14,7 @@ import App from "./App.jsx";
 import AdminLogin from "./Pages/Admin/AdminLogin.jsx";
 import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
 import RouteProtector from "./Components/RouteProtector/RouteProtector.jsx";
+import PriceTable from "./Components/AdminDashboard/PriceTable.jsx";
 
 
 
@@ -35,7 +36,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         <Route path="kapcsolat" element={<Contact/>}/>
                         <Route path="velemenyek" element={<ClientRatings/>}/>
                         <Route path="titkosAdminLogin" element={<AdminLogin/>}/>
-                        <Route path="titkosAdminDashboard" element={<RouteProtector item={<AdminDashboard/>}/>}/>
+                        <Route path="/titkosAdminDashboard" element={<RouteProtector item={<AdminDashboard/>}/>}>
+                            <Route path="adminArlistaSzerk" element={<PriceTable/>}/>
+                        </Route>
                     </Route>
                 </Routes>
             </BrowserRouter>
