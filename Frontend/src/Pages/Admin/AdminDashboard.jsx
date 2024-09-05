@@ -4,9 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import {NavigationItem} from "../../Components/AdminDashboard/NavigationItem.jsx";
+import {useNavigate, Outlet} from "react-router-dom";
 
 
 function AdminDashboard() {
+    const navigate = useNavigate();
     const drawerWidth = 290;
     
     return (
@@ -35,6 +37,9 @@ function AdminDashboard() {
                     ))}
                 </List>
             </Drawer>
+            
+                <Outlet/>
+            
         </Box>
     )
 }
