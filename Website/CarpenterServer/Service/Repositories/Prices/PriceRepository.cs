@@ -43,13 +43,18 @@ public class PriceRepository : IPriceRepository
         return existingPrice;
     }
 
-    public async Task DeletePrice(string job)
+    public async Task<bool> DeletePrice(string job)
     {
         var price = await _context.Pricelists.FirstOrDefaultAsync(jobs => jobs.Job == job);
         if (price != null)
         {
             _context.Pricelists.Remove(price);
             await _context.SaveChangesAsync();
+        return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CarpenterServer.Model;
 using CarpenterServer.Service.Repositories;
 using CarpenterServer.Service.Repositories.Prices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarpenterServer.Controllers;
@@ -16,7 +17,7 @@ public class PriceController : ControllerBase
         _priceRepository = priceRepository;
     }
 
-    [HttpGet("GetAllPrices")]
+    [HttpGet("GetAllPrices"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<IEnumerable<Pricelist>>> GetAllPrices()
     {
         var prices = await _priceRepository.GetAllPrices();
@@ -42,18 +43,36 @@ public class PriceController : ControllerBase
         return CreatedAtAction(nameof(GetPriceByJob), new { job = newPrice.Job }, newPrice);
     }
     
-    [HttpPut("UpdatePrice/{job}/{price}")]
-    public async Task<ActionResult> UpdatePrice(string job, decimal price)
+    [HttpPut("UpdatePrice")]
+    public async Task<ActionResult> UpdatePrice([FromBody] Pricelist editedPrice)
     {
-        var updatedPrice = await _priceRepository.UpdatePrice(job, price);
+        var updatedPrice = await _priceRepository.UpdatePrice(editedPrice.Job, editedPrice.Price);
+        
         return Ok(updatedPrice);
     }
     
     [HttpDelete("DeletePrice/{job}")]
     public async Task<ActionResult> DeletePrice(string job)
     {
-        await _priceRepository.DeletePrice(job);
-        return NoContent();
+        try
+        {
+            Console.WriteLine($"Deleting job '{job}'");
+            var result = await _priceRepository.DeletePrice(job);
+            if (result)
+            {
+                return NoContent(); 
+            }
+            else
+            {
+                return NotFound($"Job '{job}' not found."); // 404 if job is not found
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the exception details for debugging
+            Console.WriteLine($"Error deleting job '{job}': {ex.Message}");
+            return StatusCode(500, "An error occurred while deleting the job."); // 500 Internal Server Error for unexpected errors
+        }
     }
     
     

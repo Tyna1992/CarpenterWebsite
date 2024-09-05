@@ -1,15 +1,23 @@
+using System.Text;
 using CarpenterServer.Data;
+using CarpenterServer.Model;
+using CarpenterServer.Service.Authentication;
 using CarpenterServer.Service.DatabaseSeeder;
 using CarpenterServer.Service.EmailService;
 using CarpenterServer.Service.Repositories.Prices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 AddServices();
 AddDbContext();
+AddIdentity();
 ConfigureSwagger();
+AddAuthentication();
 
 var app = builder.Build();
 
@@ -17,6 +25,10 @@ using var scope = app.Services.CreateScope();
 var seeder= scope.ServiceProvider.GetRequiredService<ISeeder>();
 await seeder.SeedPrices();
 await seeder.SeedReviews();
+
+var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthSeeder>();
+await authenticationSeeder.SeedAsync();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -49,6 +61,9 @@ void AddServices()
     builder.Services.AddScoped<IPriceRepository, PriceRepository>();
     builder.Services.AddScoped<ISeeder,Seeder>();
     builder.Services.AddScoped<IEmailService, EmailService>();
+    builder.Services.AddScoped<AuthSeeder>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
+    builder.Services.AddScoped<IAuthService,AuthService>();
 
 
 }
@@ -83,3 +98,57 @@ void ConfigureSwagger()
         });
     });
 }
+
+void AddIdentity()
+    {
+        builder.Services
+            .AddIdentityCore<Admin>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<DataContext>();
+
+    }
+
+    void AddAuthentication()
+    {
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddCookie(options => { options.Cookie.Name = "Authorization"; })
+            .AddJwtBearer(options =>
+            {
+                var jwtSettings = builder.Configuration.GetSection("JWTSettings").Get<JWTSettings>();
+                var issuerSigningKey = builder.Configuration.GetSection("IssuerSigningKey").Value;
+                if (issuerSigningKey != null)
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ClockSkew = TimeSpan.Zero,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings?.ValidIssuer,
+                        ValidAudience = jwtSettings?.ValidAudience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey)),
+                    };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Cookies.ContainsKey("Authorization"))
+                        {
+                            context.Token = context.Request.Cookies["Authorization"];
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+    }
