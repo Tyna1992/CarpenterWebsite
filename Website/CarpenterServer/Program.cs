@@ -47,10 +47,10 @@ app.Run();
 
 void AddDbContext()
 {
+    var connectionString = builder.Configuration.GetConnectionString("Database");
     builder.Services.AddDbContext<DataContext>(options =>
     {
-        options.UseSqlServer(
-            "Server=localhost,1433;Database=CarpenterSite;User Id=sa;Password=Zakuro19920120;Encrypt=false;");
+        options.UseSqlServer(connectionString);
     });
 }
 
