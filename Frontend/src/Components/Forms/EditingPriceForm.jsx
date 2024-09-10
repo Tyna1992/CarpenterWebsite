@@ -41,11 +41,11 @@ function EditingPriceForm({ open, handleClose, price, job, setPrices, id }) {
             } else {
                 const errorResponse = await response.json();
                 console.error("Failed to update price:", errorResponse);
-                notify("error", "Hiba történt az ár frissítése közben.");
+                notify("Hiba történt az ár frissítése közben.","error" );
             }
         } catch (error) {
             console.error("Error updating price:", error);
-            notify("error", "Hiba történt az ár szerkesztése közben.");
+            notify("Hiba történt az ár frissítése közben.","error");
         }
     };
 
