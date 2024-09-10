@@ -1,9 +1,11 @@
 ﻿using CarpenterServer.Model;
 using CarpenterServer.Service.Repositories.Partners;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarpenterServer.Controllers;
-
+[ApiController]
+[Route("api/[controller]")]
 public class PartnerController : ControllerBase
 {
     private readonly IPartnerRepository _partnerRepository;
@@ -25,7 +27,7 @@ public class PartnerController : ControllerBase
         return Ok(partners);
     }
     
-    [HttpGet("GetPartnerBy/{name}")]
+    [HttpGet("GetPartnerBy/{name}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<Partner>> GetPartnerByName(string name)
     {
         var partner = await _partnerRepository.GetPartnerByName(name);
@@ -36,14 +38,14 @@ public class PartnerController : ControllerBase
         return Ok(partner);
     }
     
-    [HttpPost("AddPartner")]
+    [HttpPost("AddPartner"),Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddPartner([FromBody]Partner partner)
     {
         var newPartner = await _partnerRepository.AddPartner(partner);
         return CreatedAtAction(nameof(GetPartnerByName), new { name = newPartner.Name }, newPartner);
     }
     
-    [HttpPut("UpdatePartner/{name}")]   
+    [HttpPut("UpdatePartner/{name}"), Authorize(Roles = "Admin")]   
     public async Task<ActionResult> UpdatePartner(string name, [FromBody]Partner partner)
     {
         var updatedPartner = await _partnerRepository.UpdatePartner(name, partner);
@@ -54,7 +56,7 @@ public class PartnerController : ControllerBase
         return Ok(updatedPartner);
     }
     
-    [HttpDelete("DeletePartner/{name}")]
+    [HttpDelete("DeletePartner/{name}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeletePartner(string name)
     {
         var result = await _partnerRepository.DeletePartner(name);
