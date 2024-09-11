@@ -1,5 +1,4 @@
-﻿// GenericTable.jsx
-import React from 'react';
+﻿import React from 'react';
 import {
     TableCell,
     TableHead,
