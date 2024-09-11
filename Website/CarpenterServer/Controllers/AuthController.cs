@@ -52,7 +52,7 @@ public class AuthController : ControllerBase
             var claims = token.Claims;
             var email = claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
             var username = claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
-            return Ok(new AdminResponse(username, username));
+            return Ok(new AdminResponse(username, email));
         }
         return BadRequest("No token found");
     }

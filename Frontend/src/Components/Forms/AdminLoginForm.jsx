@@ -43,7 +43,7 @@ function AdminLoginForm()
                     email: "",
                     password: "",
                 })
-                navigate("/")
+                navigate("/titkosAdminDashboard")
                 
             }
         }

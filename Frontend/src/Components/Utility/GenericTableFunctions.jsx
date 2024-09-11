@@ -2,9 +2,9 @@
 
 import notify from "../Notifications/Notify.jsx";
 
-export const fetchPrices = async (setPrices, setLoading, setError) => {
+export const fetchData = async (setState, setLoading, setError, route) => {
     try {
-        const response = await fetch("/api/Price/GetAllPrices", {
+        const response = await fetch(route, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -17,7 +17,7 @@ export const fetchPrices = async (setPrices, setLoading, setError) => {
         }
         if (response.ok) {
             const data = await response.json();
-            setPrices(data);
+            setState(data);
             setLoading(false);
         } else {
             setError(true);
@@ -29,10 +29,10 @@ export const fetchPrices = async (setPrices, setLoading, setError) => {
     }
 };
 
-export const handleDelete = async (job, setPrices, setError) => {
-    console.log(`Deleting job: ${job}`);
+export const handleDelete = async (endpoint,item, setData, setError) => {
+    console.log(`Deleting job: ${item}`);
     try {
-        const response = await fetch(`/api/Price/DeletePrice/${job}`, {
+        const response = await fetch(endpoint, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -40,11 +40,11 @@ export const handleDelete = async (job, setPrices, setError) => {
         });
 
         if (response.ok) {
-            notify("Ár törölve", "success");
-            setPrices((prevPrices) => prevPrices.filter((item) => item.job !== job));
+            notify("Törölve", "success");
+            setData((prevData) => prevData.filter((i) => i.id !== item.id));
         } else {
             setError(true);
-            notify("error", "Hiba történt az ár törlése közben.");
+            notify("error", "Hiba történt a törlés közben.");
         }
     } catch (error) {
         setError(true);
@@ -52,12 +52,14 @@ export const handleDelete = async (job, setPrices, setError) => {
     }
 };
 
-export const handleEditClick = (priceItem, setSelectedPrice, setOpen) => {
-    setSelectedPrice(priceItem);
+export const handleEditClick = (item, setSelectedItem, setOpen) => {
+    setSelectedItem(item);
     setOpen(true);
 };
 
-export const handleClose = (setOpen, setSelectedPrice) => {
+export const handleClose = (setOpen, setSelectedItem, clearItem = null) => {
     setOpen(false);
-    setSelectedPrice(null);
+    if (setSelectedItem) {
+        setSelectedItem(clearItem);
+    }
 };

@@ -4,6 +4,7 @@ using CarpenterServer.Model;
 using CarpenterServer.Service.Authentication;
 using CarpenterServer.Service.DatabaseSeeder;
 using CarpenterServer.Service.EmailService;
+using CarpenterServer.Service.Repositories.Partners;
 using CarpenterServer.Service.Repositories.Prices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,7 @@ using var scope = app.Services.CreateScope();
 var seeder= scope.ServiceProvider.GetRequiredService<ISeeder>();
 await seeder.SeedPrices();
 await seeder.SeedReviews();
+await seeder.SeedPartners();
 
 var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthSeeder>();
 await authenticationSeeder.SeedAsync();
@@ -47,10 +49,10 @@ app.Run();
 
 void AddDbContext()
 {
+    var connectionString = builder.Configuration.GetConnectionString("Database");
     builder.Services.AddDbContext<DataContext>(options =>
     {
-        options.UseSqlServer(
-            "Server=localhost,1433;Database=CarpenterSite;User Id=sa;Password=Zakuro19920120;Encrypt=false;");
+        options.UseSqlServer(connectionString);
     });
 }
 
@@ -64,6 +66,7 @@ void AddServices()
     builder.Services.AddScoped<AuthSeeder>();
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<IAuthService,AuthService>();
+    builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 
 
 }

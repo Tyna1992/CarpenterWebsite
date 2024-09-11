@@ -10,6 +10,7 @@ public class DataContext : IdentityDbContext<Admin, IdentityRole, string>
     public DbSet<Blogpost> Blogposts { get; set; }
     public DbSet<Pricelist> Pricelists { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Partner> Partners { get; set; }
     
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
@@ -21,6 +22,7 @@ public class DataContext : IdentityDbContext<Admin, IdentityRole, string>
         builder.Entity<Pricelist>().HasIndex(list => list.Job).IsUnique();
         builder.Entity<Admin>().HasIndex(admin => admin.Email).IsUnique();
         builder.Entity<Review>().HasIndex(review => new { review.Name, review.Email }).IsUnique();
+        builder.Entity<Partner>().HasIndex(partner => partner.Name).IsUnique();
 
 
         base.OnModelCreating(builder);

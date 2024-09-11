@@ -1,10 +1,11 @@
-﻿import {Box, Drawer} from "@mui/material";
+﻿import {Box, Button, Drawer} from "@mui/material";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import {NavigationItem} from "../../Components/AdminDashboard/NavigationItem.jsx";
 import {useNavigate, Outlet} from "react-router-dom";
+import LogoutButton from "../../Components/AdminDashboard/LogoutButton.jsx";
 
 
 function AdminDashboard() {
@@ -35,6 +36,7 @@ function AdminDashboard() {
                             <ListItemText primary={item.label} />
                         </ListItemButton>
                     ))}
+                    <LogoutButton/>
                 </List>
             </Drawer>
             

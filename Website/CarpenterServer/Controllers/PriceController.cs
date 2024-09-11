@@ -17,7 +17,7 @@ public class PriceController : ControllerBase
         _priceRepository = priceRepository;
     }
 
-    [HttpGet("GetAllPrices"), Authorize(Roles = "Admin")]
+    [HttpGet("GetAllPrices")]
     public async Task<ActionResult<IEnumerable<Pricelist>>> GetAllPrices()
     {
         var prices = await _priceRepository.GetAllPrices();
@@ -29,21 +29,21 @@ public class PriceController : ControllerBase
         return Ok(prices);
     }
 
-    [HttpGet("GetPriceBy/{job}")]
+    [HttpGet("GetPriceBy/{job}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult<Pricelist>> GetPriceByJob(string job)
     {
         var price = await _priceRepository.GetPriceByJob(job);
         return Ok(price);
     }
     
-    [HttpPost("AddPrice")]
+    [HttpPost("AddPrice"), Authorize(Roles = "Admin")]
     public async Task<ActionResult> AddPrice(Pricelist price)
     {
         var newPrice = await _priceRepository.AddPrice(price);
         return CreatedAtAction(nameof(GetPriceByJob), new { job = newPrice.Job }, newPrice);
     }
     
-    [HttpPut("UpdatePrice")]
+    [HttpPut("UpdatePrice"), Authorize(Roles = "Admin")]
     public async Task<ActionResult> UpdatePrice([FromBody] Pricelist editedPrice)
     {
         var updatedPrice = await _priceRepository.UpdatePrice(editedPrice.Job, editedPrice.Price);
@@ -51,7 +51,7 @@ public class PriceController : ControllerBase
         return Ok(updatedPrice);
     }
     
-    [HttpDelete("DeletePrice/{job}")]
+    [HttpDelete("DeletePrice/{job}"), Authorize(Roles = "Admin")]
     public async Task<ActionResult> DeletePrice(string job)
     {
         try

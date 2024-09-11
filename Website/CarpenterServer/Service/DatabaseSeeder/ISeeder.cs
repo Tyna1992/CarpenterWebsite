@@ -4,4 +4,5 @@ public interface ISeeder
 {
     Task SeedPrices();
     Task SeedReviews();
+    Task SeedPartners();
 }
