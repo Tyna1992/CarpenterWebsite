@@ -48,9 +48,9 @@ function PriceTable() {
     };
 
     const columns = [
-        { id: 'job', label: 'Munkatípus' },
-        { id: 'price', label: 'Ár' },
-        {id: 'edit', label: 'Szerkesztés' },
+        {id: 'job', label: 'Munkatípus'},
+        {id: 'price', label: 'Ár'},
+        {id: 'edit', label: 'Szerkesztés'},
     ];
 
     return (
