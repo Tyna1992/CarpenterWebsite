@@ -50,6 +50,15 @@ function PartnerTable() {
         {id: 'products', label: 'Felhasznált termékek'},
     ];
 
+    const editFields = [
+        { id: "name", label: "Név", type: "text" },
+        { id: "description", label: "Leírás", type: "text" },
+        { id: "website", label: "Weboldal", type: "text" },
+        { id: "products", label: "Felhasznált termékek", type: "text" },
+    ];
+
+    
+
     return (
         <GenericTable
             data={partners}
