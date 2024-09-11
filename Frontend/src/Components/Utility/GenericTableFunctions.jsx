@@ -44,7 +44,7 @@ export const handleDelete = async (endpoint,item, setData, setError) => {
             setData((prevData) => prevData.filter((i) => i.id !== item.id));
         } else {
             setError(true);
-            notify("error", "Hiba történt a törlés közben.");
+            notify("Hiba történt a törlés közben.", "error");
         }
     } catch (error) {
         setError(true);

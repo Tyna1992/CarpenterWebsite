@@ -1,6 +1,11 @@
 ﻿import {useEffect, useState} from "react";
 import {fetchData, handleDelete, handleEditClick, handleClose} from "../Utility/GenericTableFunctions.jsx";
 import GenericTable from "./GenericTable.jsx";
+import GenericEditForm from "../Forms/GenericEditForm.jsx";
+import GenericAddForm from "../Forms/GenericAddForm.jsx";
+import ConfirmDialog from "./ConfirmDialog.jsx";
+import Grid from "@mui/material/Grid";
+
 
 
 function PartnerTable() {
@@ -39,7 +44,7 @@ function PartnerTable() {
     };
 
     const handleConfirmDelete = () => {
-        handleDelete(`/api/Partner/DeletePartner/${deletePartner.name}`, deletePartner, setPartners, setError);
+        handleDelete(`/api/Partner/DeletePartner/${deletePartner.id}`, deletePartner, setPartners, setError);
         setConfirmOpen(false);
     };
 
@@ -50,18 +55,51 @@ function PartnerTable() {
         {id: 'products', label: 'Felhasznált termékek'},
     ];
 
+    const editFields = [
+        { id: "name", label: "Név", type: "text" },
+        { id: "description", label: "Leírás", type: "text" },
+        { id: "website", label: "Weboldal", type: "text" },
+        { id: "products", label: "Felhasznált termékek", type: "text" },
+    ];
+
+    
+
     return (
-        <GenericTable
-            data={partners}
-            columns={columns}
-            name="Partnerek"
-            onEditClick={handleEditClickInternal}
-            onDeleteClick={handleDeleteClick}
-            onAddClick={handleAddClick}
-            loading={loading}
-            error={error}
-            emptyMessage="Nincs megjeleníthető partnerlista."
-        />
+        <Grid container>
+            <GenericTable
+                data={partners}
+                columns={columns}
+                name="Partnerek"
+                onEditClick={handleEditClickInternal}
+                onDeleteClick={handleDeleteClick}
+                onAddClick={handleAddClick}
+                loading={loading}
+                error={error}
+                emptyMessage="Nincs megjeleníthető partnerlista."
+            />
+            {selectedPartner &&(
+                <GenericEditForm
+                    open={open}
+                    handleClose={handleCloseInternal}
+                    initialData={selectedPartner}
+                    fields={editFields}
+                    route="/api/Partner/UpdatePartner"
+                    setData={setPartners}
+                    title="Partner szerkesztése"
+                    
+                />
+                
+            )}
+            <GenericAddForm open={addOpen} handleClose={handleAddClose} setData={setPartners} title="Partner hozzáadása" route="/api/Partner/AddPartner" formDataKeys={columns}/>
+            <ConfirmDialog
+                open={confirmOpen}
+                setOpen={setConfirmOpen}
+                onConfirm={handleConfirmDelete}
+                title="Biztosan törli?"
+                message="Ez a művelet végleges. Biztosan törölni szeretné a partnert?"
+            />
+        </Grid>
+        
     )
 
     

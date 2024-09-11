@@ -32,9 +32,9 @@ public class PartnerRepository : IPartnerRepository
         return partner;
     }
 
-    public async Task<Partner> UpdatePartner(string name, Partner partner)
+    public async Task<Partner> UpdatePartner( Partner partner)
     {
-        var existingPartner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Name == name);
+        var existingPartner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Name == partner.Name);
         if (existingPartner != null)
         {
             existingPartner.Name = partner.Name;
@@ -46,9 +46,9 @@ public class PartnerRepository : IPartnerRepository
         return existingPartner;
     }
 
-    public async Task<Partner?> DeletePartner(string name)
+    public async Task<Partner?> DeletePartner(string id)
     {
-        var partner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Name == name);
+        var partner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Id.ToString() == id);
         if (partner != null)
         {
             _context.Partners.Remove(partner);
