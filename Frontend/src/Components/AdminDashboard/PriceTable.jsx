@@ -54,7 +54,7 @@ function PriceTable() {
     ];
 
     const editFields = [
-        { id: "job", label: "Munkatípus", type: "text", disabled: true },
+        { id: "job", label: "Munkatípus", type: "text" },
         { id: "price", label: "Ár", type: "number" },
     ];
     
