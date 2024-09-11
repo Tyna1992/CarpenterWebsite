@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import EditingPriceForm from "../Forms/EditingPriceForm.jsx";
 import AddPrice from "../Forms/AddPrice.jsx";
 import ConfirmDialog from "./ConfirmDialog.jsx";
-import {fetchData,handleDelete,handleEditClick,handleClose} from "../Utility/GenericTableFunctions.jsx";
+import {fetchData, handleDelete, handleEditClick, handleClose} from "../Utility/GenericTableFunctions.jsx";
 import GenericTable from "./GenericTable.jsx";
 
 
@@ -52,22 +52,20 @@ function PriceTable() {
         { id: 'price', label: 'Ár' },
         {id: 'edit', label: 'Szerkesztés' },
     ];
-   
+
     return (
         <Grid container sx={{PaddingLeft: "11rem"}}>
-            
-                <Grid item xs={12}>
-                    <GenericTable
-                        data={prices}
-                        columns={columns}
-                        name="Árak"
-                        onEditClick={handleEditClickInternal}
-                        onDeleteClick={handleDeleteClick}
-                        onAddClick={handleAddClick}
-                        loading={loading}
-                        error={error}
-                        emptyMessage="Nincs megjeleníthető ár."
-                    />
+            <GenericTable
+                data={prices}
+                columns={columns}
+                name="Árak"
+                onEditClick={handleEditClickInternal}
+                onDeleteClick={handleDeleteClick}
+                onAddClick={handleAddClick}
+                loading={loading}
+                error={error}
+                emptyMessage="Nincs megjeleníthető ár."
+            />
             {selectedPrice && (
                 <EditingPriceForm
                     open={open}
@@ -86,7 +84,6 @@ function PriceTable() {
                 message="Ez a művelet végleges. Biztosan törölni szeretné?"
                 onConfirm={handleConfirmDelete}
             />
-        </Grid>
         </Grid>
     );
 }
