@@ -45,24 +45,24 @@ public class PartnerController : ControllerBase
         return CreatedAtAction(nameof(GetPartnerByName), new { name = newPartner.Name }, newPartner);
     }
     
-    [HttpPut("UpdatePartner/{name}"), Authorize(Roles = "Admin")]   
-    public async Task<ActionResult> UpdatePartner(string name, [FromBody]Partner partner)
+    [HttpPut("UpdatePartner"), Authorize(Roles = "Admin")]   
+    public async Task<ActionResult> UpdatePartner([FromBody]Partner editedPartner)
     {
-        var updatedPartner = await _partnerRepository.UpdatePartner(name, partner);
+        var updatedPartner = await _partnerRepository.UpdatePartner(editedPartner);
         if(updatedPartner == null)
         {
-            return NotFound($"No partner found with name '{name}'.");
+            return NotFound($"No partner found with name '{editedPartner.Name}'.");
         }
         return Ok(updatedPartner);
     }
     
-    [HttpDelete("DeletePartner/{name}"), Authorize(Roles = "Admin")]
-    public async Task<ActionResult> DeletePartner(string name)
+    [HttpDelete("DeletePartner/{id}"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> DeletePartner(string id)
     {
-        var result = await _partnerRepository.DeletePartner(name);
+        var result = await _partnerRepository.DeletePartner(id);
         if(result == null)
         {
-            return NotFound($"No partner found with name '{name}'.");
+            return NotFound($"No partner found.");
         }
         return Ok(result);
     }
