@@ -1,7 +1,7 @@
 ﻿import {useState, useEffect} from "react";
 import Grid from "@mui/material/Grid";
 import EditingPriceForm from "../Forms/EditingPriceForm.jsx";
-import AddPrice from "../Forms/AddPrice.jsx";
+import GenericAddForm from "../Forms/GenericAddForm.jsx";
 import ConfirmDialog from "./ConfirmDialog.jsx";
 import {fetchData, handleDelete, handleEditClick, handleClose} from "../Utility/GenericTableFunctions.jsx";
 import GenericTable from "./GenericTable.jsx";
@@ -52,6 +52,8 @@ function PriceTable() {
         {id: 'price', label: 'Ár'},
         {id: 'edit', label: 'Szerkesztés'},
     ];
+    
+    const dataKeys= [{id: "job", label: "Munkatípus"}, {id:"price", label: "Ár"}]
 
     return (
         <Grid container sx={{PaddingLeft: "11rem"}}>
@@ -76,7 +78,7 @@ function PriceTable() {
                     id={selectedPrice.id}
                 />
             )}
-            <AddPrice open={addOpen} handleClose={handleAddClose} setPrices={setPrices}/>
+            <GenericAddForm open={addOpen} handleClose={handleAddClose} setData={setPrices} route="/api/Price/AddPrice" title="Ár hozzáadása" formDataKeys={dataKeys}/>
             <ConfirmDialog
                 open={confirmOpen}
                 setOpen={setConfirmOpen}
