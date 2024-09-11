@@ -1,6 +1,6 @@
 ﻿import {useState, useEffect} from "react";
 import Grid from "@mui/material/Grid";
-import EditingPriceForm from "../Forms/EditingPriceForm.jsx";
+import GenericEditForm from "../Forms/GenericEditForm.jsx";
 import GenericAddForm from "../Forms/GenericAddForm.jsx";
 import ConfirmDialog from "./ConfirmDialog.jsx";
 import {fetchData, handleDelete, handleEditClick, handleClose} from "../Utility/GenericTableFunctions.jsx";
@@ -49,8 +49,13 @@ function PriceTable() {
 
     const columns = [
         {id: 'job', label: 'Munkatípus'},
-        {id: 'price', label: 'Ár'},
-        {id: 'edit', label: 'Szerkesztés'},
+        {id: 'price', label: 'Ár (HUF)'},
+        
+    ];
+
+    const editFields = [
+        { id: "job", label: "Munkatípus", type: "text", disabled: true },
+        { id: "price", label: "Ár", type: "number" },
     ];
     
     const dataKeys= [{id: "job", label: "Munkatípus"}, {id:"price", label: "Ár"}]
@@ -69,13 +74,14 @@ function PriceTable() {
                 emptyMessage="Nincs megjeleníthető ár."
             />
             {selectedPrice && (
-                <EditingPriceForm
+                <GenericEditForm
                     open={open}
                     handleClose={handleCloseInternal}
-                    price={selectedPrice.price}
-                    job={selectedPrice.job}
-                    setPrices={setPrices}
-                    id={selectedPrice.id}
+                    initialData={selectedPrice}
+                    fields={editFields}
+                    setData={setPrices}
+                    route="/api/Price/UpdatePrice"
+                    title="Ár szerkesztése"
                 />
             )}
             <GenericAddForm open={addOpen} handleClose={handleAddClose} setData={setPrices} route="/api/Price/AddPrice" title="Ár hozzáadása" formDataKeys={dataKeys}/>
