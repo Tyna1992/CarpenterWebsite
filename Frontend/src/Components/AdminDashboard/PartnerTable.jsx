@@ -1,6 +1,11 @@
 ﻿import {useEffect, useState} from "react";
 import {fetchData, handleDelete, handleEditClick, handleClose} from "../Utility/GenericTableFunctions.jsx";
 import GenericTable from "./GenericTable.jsx";
+import GenericEditForm from "../Forms/GenericEditForm.jsx";
+import GenericAddForm from "../Forms/GenericAddForm.jsx";
+import ConfirmDialog from "./ConfirmDialog.jsx";
+import Grid from "@mui/material/Grid";
+
 
 
 function PartnerTable() {
@@ -60,17 +65,41 @@ function PartnerTable() {
     
 
     return (
-        <GenericTable
-            data={partners}
-            columns={columns}
-            name="Partnerek"
-            onEditClick={handleEditClickInternal}
-            onDeleteClick={handleDeleteClick}
-            onAddClick={handleAddClick}
-            loading={loading}
-            error={error}
-            emptyMessage="Nincs megjeleníthető partnerlista."
-        />
+        <Grid container>
+            <GenericTable
+                data={partners}
+                columns={columns}
+                name="Partnerek"
+                onEditClick={handleEditClickInternal}
+                onDeleteClick={handleDeleteClick}
+                onAddClick={handleAddClick}
+                loading={loading}
+                error={error}
+                emptyMessage="Nincs megjeleníthető partnerlista."
+            />
+            {selectedPartner &&(
+                <GenericEditForm
+                    open={open}
+                    handleClose={handleCloseInternal}
+                    initialData={selectedPartner}
+                    fields={editFields}
+                    route="/api/Partner/UpdatePartner"
+                    setData={setPartners}
+                    title="Partner szerkesztése"
+                    
+                />
+                
+            )}
+            <GenericAddForm open={addOpen} handleClose={handleAddClose} setData={setPartners} title="Partner hozzáadása" route="/api/Partner/AddPartner" formDataKeys={columns}/>
+            <ConfirmDialog
+                open={confirmOpen}
+                setOpen={setConfirmOpen}
+                onConfirm={handleConfirmDelete}
+                title="Biztosan törli?"
+                message="Ez a művelet végleges. Biztosan törölni szeretné a partnert?"
+            />
+        </Grid>
+        
     )
 
     
