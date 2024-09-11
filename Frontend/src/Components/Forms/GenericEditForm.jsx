@@ -65,12 +65,11 @@ function GenericEditForm({ open, handleClose, initialData, fields, setData, rout
                                         fullWidth
                                         label={field.label}
                                         variant="outlined"
-                                        type={field.type || "text"}
+                                        type={field.type}
                                         required={field.required}
                                         name={field.id}
-                                        value={formData[field.id] || ""}
+                                        value={formData[field.id]}
                                         onChange={handleChange}
-                                        disabled={field.disabled || false}
                                     />
                                 </Grid>
                             ))}                            
