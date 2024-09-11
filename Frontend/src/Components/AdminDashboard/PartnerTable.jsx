@@ -39,7 +39,7 @@ function PartnerTable() {
     };
 
     const handleConfirmDelete = () => {
-        handleDelete(`/api/Partner/DeletePartner/${deletePartner.name}`, deletePartner, setPartners, setError);
+        handleDelete(`/api/Partner/DeletePartner/${deletePartner.id}`, deletePartner, setPartners, setError);
         setConfirmOpen(false);
     };
 
