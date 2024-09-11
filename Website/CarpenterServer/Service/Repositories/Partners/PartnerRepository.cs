@@ -32,9 +32,9 @@ public class PartnerRepository : IPartnerRepository
         return partner;
     }
 
-    public async Task<Partner> UpdatePartner(string name, Partner partner)
+    public async Task<Partner> UpdatePartner( Partner partner)
     {
-        var existingPartner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Name == name);
+        var existingPartner = await _context.Partners.FirstOrDefaultAsync(partners => partners.Name == partner.Name);
         if (existingPartner != null)
         {
             existingPartner.Name = partner.Name;
