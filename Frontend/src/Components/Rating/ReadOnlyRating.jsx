@@ -1,10 +1,11 @@
 ﻿import {Box, Rating} from "@mui/material";
-function ReadOnlyRating({rating}) {
+function ReadOnlyRating({value}) {
+    
   return (
     <Box>
       <Rating
         name="read-only"
-        value={rating}
+        value={value}
         readOnly
       />
     </Box>

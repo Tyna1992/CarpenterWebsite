@@ -19,12 +19,6 @@ export const NavigationItem = [
         route: "adminPartnerekSzerk"        
     },
     {
-        id: 11,
-        icon: <ContactPhoneIcon/>,
-        label: "Kontaktinfó szerkesztése",
-        route: "adminKontaktSzerk"        
-    },
-    {
         id: 12,
         icon: <ThumbsUpDownIcon/>,
         label: "Értékelések hitelesítése",
@@ -35,12 +29,6 @@ export const NavigationItem = [
         icon: <NewspaperIcon/>,
         label: "Hírek szerkesztése",
         route: "adminHirekSzerk"        
-    },
-    {
-        id: 14,
-        icon: <InfoIcon/>,
-        label: "Tájékoztató szerkesztése",
-        route: "adminTajekozatoSzerk"        
     },
     {
         id: 15,

@@ -24,9 +24,10 @@ const GenericTable = ({
                           error,
                           name,
                           emptyMessage,
-                          editButtonLabel = "Szerkesztés",
+                          editButtonLabel,
                           deleteButtonLabel = "Törlés",
-                          addButtonLabel = "Új hozzáadása"
+                          addButtonLabel = "Új hozzáadása",
+                          isDisabled
                       }) => (
     <Grid container sx={{PaddingLeft: "11rem"}}>
         {loading && <Typography variant="h1">Betöltés...</Typography>}
@@ -50,7 +51,9 @@ const GenericTable = ({
                             {data.map((item) => (
                                 <TableRow key={item.id}>
                                     {columns.map((col) => (
-                                        <TableCell key={col.id}>{item[col.id]}</TableCell>
+                                        
+                                        <TableCell key={col.id}>{col.id === 'verified' ? (item[col.id] ? 'Igen' : 'Nem') : item[col.id]}
+                                        </TableCell>
                                     ))}
                                     <TableCell>
                                         <Button
@@ -68,6 +71,7 @@ const GenericTable = ({
                                             variant="contained"
                                             onClick={() => onDeleteClick(item)}
                                             startIcon={<DeleteIcon />}
+                                            disabled={isDisabled}
                                         >
                                             {deleteButtonLabel}
                                         </Button>
@@ -77,7 +81,7 @@ const GenericTable = ({
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Button variant="contained" size="medium" onClick={onAddClick}>{addButtonLabel}</Button>
+                <Button disabled={isDisabled} variant="contained" size="medium" onClick={onAddClick}>{addButtonLabel}</Button>
             </Grid>
         )}
     </Grid>

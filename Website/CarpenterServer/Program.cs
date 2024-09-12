@@ -6,6 +6,7 @@ using CarpenterServer.Service.DatabaseSeeder;
 using CarpenterServer.Service.EmailService;
 using CarpenterServer.Service.Repositories.Partners;
 using CarpenterServer.Service.Repositories.Prices;
+using CarpenterServer.Service.Repositories.Reviews;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,7 @@ void AddServices()
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<IAuthService,AuthService>();
     builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
+    builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 
 }

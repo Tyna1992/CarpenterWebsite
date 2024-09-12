@@ -16,6 +16,7 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard.jsx";
 import RouteProtector from "./Components/RouteProtector/RouteProtector.jsx";
 import PriceTable from "./Components/AdminDashboard/PriceTable.jsx";
 import PartnerTable from "./Components/AdminDashboard/PartnerTable.jsx";
+import ReviewTable from "./Components/AdminDashboard/ReviewTable.jsx";
 
 
 
@@ -39,7 +40,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         <Route path="titkosAdminLogin" element={<AdminLogin/>}/>
                         <Route path="/titkosAdminDashboard" element={<RouteProtector item={<AdminDashboard/>}/>}>
                             <Route path="adminArlistaSzerk" element={<PriceTable/>}/>
-                            <Route path="adminPartnerekSzerk" element={<PartnerTable/>}></Route>
+                            <Route path="adminPartnerekSzerk" element={<PartnerTable/>}/>
+                            <Route path="adminErtekelesekCheck" element={<ReviewTable/>}/>
                         </Route>
                     </Route>
                 </Routes>

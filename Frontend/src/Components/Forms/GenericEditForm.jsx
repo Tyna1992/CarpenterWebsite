@@ -1,4 +1,4 @@
-﻿import { Container, Grid, Dialog, DialogTitle, DialogContent, TextField, Button } from "@mui/material";
+﻿import { Container, Grid, Dialog, DialogTitle, DialogContent, TextField, Button,FormControlLabel, Checkbox } from "@mui/material";
 import { useState, useEffect } from "react";
 import notify from "../Notifications/Notify.jsx";
 
@@ -8,20 +8,24 @@ function GenericEditForm({ open, handleClose, initialData, fields, setData, rout
     useEffect(() => {
         setFormData(initialData || {});
     }, [initialData]);
-    
-    
+
+
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value, type, checked } = event.target;
+
         setFormData((prevState) => ({
             ...prevState,
-            [name]: value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
-        
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+        setData((prevData) =>
+            prevData.map((item) =>
+                item.id === formData.id ? { ...item, ...formData } : item
+            )
+        );
         try {
             const response = await fetch(route, {
                 method: "PUT",
@@ -30,7 +34,6 @@ function GenericEditForm({ open, handleClose, initialData, fields, setData, rout
                 },
                 body: JSON.stringify(formData),
             });
-
             if (response.ok) {
                 const updatedData = await response.json();
                 notify("Frissítve", "success");
@@ -61,16 +64,31 @@ function GenericEditForm({ open, handleClose, initialData, fields, setData, rout
                         <Grid container spacing={2}>
                             {fields.map((field) => (
                                 <Grid item xs={12} key={field.id}>
-                                    <TextField
-                                        fullWidth
-                                        label={field.label}
-                                        variant="outlined"
-                                        type={field.type}
-                                        required={field.required}
-                                        name={field.id}
-                                        value={formData[field.id]}
-                                        onChange={handleChange}
-                                    />
+                                    {field.type === 'checkbox' ? (
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={formData[field.id] || false}
+                                                    onChange={handleChange}
+                                                    name={field.id}
+                                                    disabled={field.disabled || false}
+                                                />
+                                            }
+                                            label={field.label}
+                                        />
+                                    ) : (
+                                        <TextField
+                                            fullWidth
+                                            label={field.label}
+                                            variant="outlined"
+                                            type={field.type}
+                                            required={field.required}
+                                            name={field.id}
+                                            value={formData[field.id]}
+                                            onChange={handleChange}
+                                            disabled={field.disabled || false}
+                                        />
+                                    )}
                                 </Grid>
                             ))}                            
                             <Grid item xs={12}>

@@ -76,6 +76,8 @@ function PartnerTable() {
                 loading={loading}
                 error={error}
                 emptyMessage="Nincs megjeleníthető partnerlista."
+                editButtonLabel="Szerkesztés"
+                isDisabled={false}
             />
             {selectedPartner &&(
                 <GenericEditForm
