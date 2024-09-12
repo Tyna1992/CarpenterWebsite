@@ -72,6 +72,8 @@ function PriceTable() {
                 loading={loading}
                 error={error}
                 emptyMessage="Nincs megjeleníthető ár."
+                editButtonLabel={"Szerkesztés"}
+                isDisabled={false}
             />
             {selectedPrice && (
                 <GenericEditForm
