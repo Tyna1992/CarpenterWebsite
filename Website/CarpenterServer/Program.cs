@@ -1,9 +1,12 @@
 using System.Text;
 using CarpenterServer.Data;
+using CarpenterServer.Filters;
 using CarpenterServer.Model;
 using CarpenterServer.Service.Authentication;
 using CarpenterServer.Service.DatabaseSeeder;
 using CarpenterServer.Service.EmailService;
+using CarpenterServer.Service.Repositories.Galleries;
+using CarpenterServer.Service.Repositories.Images;
 using CarpenterServer.Service.Repositories.Partners;
 using CarpenterServer.Service.Repositories.Prices;
 using CarpenterServer.Service.Repositories.Reviews;
@@ -69,6 +72,8 @@ void AddServices()
     builder.Services.AddScoped<IAuthService,AuthService>();
     builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
     builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+    builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
+    builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 
 }
