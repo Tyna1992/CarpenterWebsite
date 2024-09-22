@@ -106,6 +106,7 @@ void ConfigureSwagger()
                 new string[] { }
             }
         });
+        option.OperationFilter<FileUploadOperationFilter>();
     });
 }
 
