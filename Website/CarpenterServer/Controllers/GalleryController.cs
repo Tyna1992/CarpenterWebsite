@@ -30,4 +30,15 @@ public class GalleryController : ControllerBase
         }
         return Ok(gallery);
     }
+    
+    [HttpGet("getGallery/{id}")]
+    public async Task<ActionResult> GetGallery(string id)
+    {
+        var gallery = await _galleryRepository.GetGalleryById(id);
+        if (gallery == null)
+        {
+            return NotFound("Gallery not found");
+        }
+        return Ok(gallery);
+    }
 }
