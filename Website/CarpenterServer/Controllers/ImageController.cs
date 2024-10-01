@@ -29,6 +29,11 @@ public class ImageController : ControllerBase
             return BadRequest("No file was uploaded");
         }
         
+        if (galleryId == Guid.Empty)
+        {
+            return BadRequest("Invalid gallery ID");
+        }
+        
         Console.WriteLine($"Uploading to Gallery ID: {galleryId}");
         
         var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
