@@ -5,6 +5,7 @@ import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import InfoIcon from '@mui/icons-material/Info';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 export const NavigationItem = [
     {
         id: 9,
@@ -35,6 +36,12 @@ export const NavigationItem = [
         icon: <TipsAndUpdatesIcon/>,
         label: "Blog szerkesztése",
         route: "adminBlogSzerk"        
+    },
+    {
+        id: 16,
+        icon: <AddPhotoAlternateIcon/> ,
+        label: "Képfeltöltés",
+        route: "adminGaleriaSzerk"
     }
     
 ];
