@@ -14,20 +14,19 @@ public class GalleryController : ControllerBase
         _galleryRepository = galleryRepository;
     }
     
-    [HttpPost("AddGallery")]
-    public async Task<ActionResult> AddGallery([FromBody] Gallery gallery)
+    [HttpPost("add")]
+    public async Task<ActionResult> AddGallery([FromBody] GalleryCreateDto galleryDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         
-        await _galleryRepository.AddGallery(gallery);
-        
-        foreach (var image in gallery.Images)
+        var gallery = new Gallery
         {
-            image.GalleryId = gallery.Id; 
-        }
+            Name = galleryDto.Name
+        };
+        await _galleryRepository.AddGallery(gallery);
         return Ok(gallery);
     }
     
