@@ -21,20 +21,14 @@ public class GalleryRepository : IGalleryRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Gallery>> GetAllGalleries()
+    public async Task<IEnumerable<GalleryDto>> GetAllGalleries()
     {
-        return await _context.Galleries.ToListAsync();
-    }
+        var galleries = await _context.Galleries
+            .Include(g => g.Images) 
+            .ToListAsync();
 
-    public async Task<GalleryDto> GetGalleryById(string id)
-    {
-        var gallery = await _context.Galleries.Include(g => g.Images).FirstOrDefaultAsync(gallery => gallery.Id.ToString() == id);
-        if (gallery == null)
-        {
-            return null;
-        }
-
-        return new GalleryDto
+       
+        return galleries.Select(gallery => new GalleryDto
         {
             Id = gallery.Id,
             Name = gallery.Name,
