@@ -7,6 +7,6 @@ public interface IImageRepository
     Task AddImage(ImageEntity image);
     Task<IEnumerable<ImageEntity>> GetAllImages();
     Task<ImageEntity> GetImageById(Guid id);
-    Task DeleteImage(Guid id);
+    Task DeleteImage(string id);
     
 }
