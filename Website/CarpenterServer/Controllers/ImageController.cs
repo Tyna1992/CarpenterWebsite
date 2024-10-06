@@ -22,7 +22,7 @@ public class ImageController : ControllerBase
     }
     
     [HttpPost("upload")]
-    public async Task<ActionResult> UploadImage([FromForm] IFormFile file, [FromForm] Guid galleryId, [FromForm] string description)
+    public async Task<ActionResult> UploadImage([FromForm] IFormFile file, [FromForm] Guid galleryId, [FromForm] string description, [FromForm] string title)
     {
         if (file == null)
         {
@@ -36,8 +36,7 @@ public class ImageController : ControllerBase
         
         Console.WriteLine($"Uploading to Gallery ID: {galleryId}");
         
-        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-        var filePath = Path.Combine(_folderPath, fileName);
+        var filePath = Path.Combine(_folderPath, file.FileName);
         
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
@@ -46,10 +45,10 @@ public class ImageController : ControllerBase
         
         var image = new ImageEntity()
         {
-            Title = file.FileName,
-            Id = new Guid(),
+            Title = title,
+            Id = Guid.NewGuid(),
             UploadDate = DateTime.Today,
-            FilePath = Path.Combine("Images", fileName),
+            FilePath  = Path.Combine("Images", file.FileName).Replace("\\", "/"),
             Description = description,
             GalleryId = galleryId
             
