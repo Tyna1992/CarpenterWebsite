@@ -14,7 +14,7 @@ public class ImageController : ControllerBase
     public ImageController(IImageRepository imageRepository, IWebHostEnvironment env)
     {
         _imageRepository = imageRepository;
-        _folderPath = Path.Combine(env.ContentRootPath, "Images");
+        _folderPath = Path.Combine(env.WebRootPath, "Images");
         if (!Directory.Exists(_folderPath))
         {
             Directory.CreateDirectory(_folderPath);
