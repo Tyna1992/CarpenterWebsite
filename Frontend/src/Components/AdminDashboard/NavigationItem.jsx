@@ -40,7 +40,7 @@ export const NavigationItem = [
     {
         id: 16,
         icon: <AddPhotoAlternateIcon/> ,
-        label: "Képfeltöltés",
+        label: "Képfeltöltés, galéria szerkesztése",
         route: "adminGaleriaSzerk"
     }
     
