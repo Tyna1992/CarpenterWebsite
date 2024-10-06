@@ -40,7 +40,13 @@ public class GalleryRepository : IGalleryRepository
                 UploadDate = img.UploadDate,
                 Description = img.Description
             }).ToList()
-        };
+        });
+    }
+
+    public async Task<Gallery> GetGalleryById(string id)
+    {
+        return await _context.Galleries.Include(g => g.Images).FirstOrDefaultAsync(gallery => gallery.Id.ToString() == id);
+        
     }
 
     public async Task DeleteGallery(Guid id)
