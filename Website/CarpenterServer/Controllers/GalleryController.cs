@@ -1,4 +1,5 @@
-﻿using CarpenterServer.Model;
+﻿using CarpenterServer.DTOs;
+using CarpenterServer.Model;
 using CarpenterServer.Service.Repositories.Galleries;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +15,52 @@ public class GalleryController : ControllerBase
         _galleryRepository = galleryRepository;
     }
     
-    [HttpPost("AddGallery")]
-    public async Task<ActionResult> AddGallery([FromBody] Gallery gallery)
+    [HttpPost("add")]
+    public async Task<ActionResult> AddGallery([FromBody] GalleryCreateDto galleryDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         
-        await _galleryRepository.AddGallery(gallery);
-        
-        foreach (var image in gallery.Images)
+        var gallery = new Gallery
         {
-            image.GalleryId = gallery.Id; 
-        }
+            Name = galleryDto.Name
+        };
+        await _galleryRepository.AddGallery(gallery);
         return Ok(gallery);
+    }
+    
+    [HttpGet("getGallery/{id}")]
+    public async Task<ActionResult<GalleryDto>> GetGallery(string id)
+    {
+        var gallery = await _galleryRepository.GetGalleryById(id);
+        if (gallery == null)
+        {
+            return NotFound("Gallery not found");
+        }
+
+        var galleryDto = new GalleryDto
+        {
+            Id = gallery.Id,
+            Name = gallery.Name,
+            Images = gallery.Images.Select(img => new ImageEntityDto
+            {
+                Id = img.Id,
+                Title = img.Title,
+                FilePath = Url.Action("GetImage","Image", new { fileName = Path.GetFileName(img.FilePath) }),
+                UploadDate = img.UploadDate,
+                Description = img.Description
+            }).ToList()
+        };
+        
+        return Ok(galleryDto);
+    }
+    
+    [HttpGet("getAll")]
+    public async Task<ActionResult> GetAllGalleries()
+    {
+        var galleries = await _galleryRepository.GetAllGalleries();
+        return Ok(galleries);
     }
 }

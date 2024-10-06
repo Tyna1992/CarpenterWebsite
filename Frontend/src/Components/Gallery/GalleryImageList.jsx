@@ -23,7 +23,7 @@ function GalleryImageList({imageData=[]}){
                 <ImageListItem key={image.id}>
                     <ButtonBase onClick={() => handleClickOpen(image)}>
                         <img
-                            src={image.img}
+                            src={`http://localhost:5180/${image.filePath}`}
                             alt={image.title}
                             loading="eager"
                             style={{ width: '100%', height: 'auto' }}
@@ -38,7 +38,7 @@ function GalleryImageList({imageData=[]}){
             {selectedImage && (
                 <>
                     <img
-                        src={selectedImage.img}
+                        src={`http://localhost:5180/${selectedImage.filePath}`}
                         alt={selectedImage.title}
                         style={{ width: '100%', height: 'auto' }}
                     />

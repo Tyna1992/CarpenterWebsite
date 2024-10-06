@@ -30,9 +30,9 @@ public class ImageRepository : IImageRepository
         return image;
     }
 
-    public async Task DeleteImage(Guid id)
+    public async Task DeleteImage(string id)
     {
-        var image = await _context.Images.FirstOrDefaultAsync(image => image.Id == id);
+        var image = await _context.Images.FirstOrDefaultAsync(image => image.Id.ToString() == id);
         if (image != null)
         {
             _context.Images.Remove(image);
