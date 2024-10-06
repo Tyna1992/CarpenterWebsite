@@ -57,6 +57,27 @@ public class ImageController : ControllerBase
        
         await _imageRepository.AddImage(image);
         
-        return Ok(new {message = "Image uploaded successfully", imageId = image.Id});
+        return Ok(new {message = "Image uploaded successfully", imageId = image.Id, filePath= Url.Content($"~/Images/{file.FileName}")});
+    }
+    
+    [HttpDelete("delete/{id}")]
+    public async Task<ActionResult> DeleteImage(string id)
+    {
+        await _imageRepository.DeleteImage(id);
+        return Ok("Image deleted successfully");
+    }
+
+    [HttpGet("get/{fileName}")]
+    public IActionResult GetImage(string fileName)
+    {
+        var filePath = Path.Combine(_folderPath, fileName);
+        
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound("Image not found");
+        }
+        
+        var image = System.IO.File.OpenRead(filePath);
+        return File(image, "image/jpeg");
     }
 }
