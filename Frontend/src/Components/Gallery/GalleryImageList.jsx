@@ -3,8 +3,7 @@ import React, {useState} from "react";
 import ConfirmDialog from "../AdminDashboard/ConfirmDialog.jsx";
 import notify from "../Notifications/Notify.jsx";
 
-
-function GalleryImageList({imageData=[]}){
+function GalleryImageList({imageData = [], isAdmin = false, galleries, setGalleries}){
 
     const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -69,23 +68,35 @@ function GalleryImageList({imageData=[]}){
                 </ImageListItem>
             ))}
         </ImageList>
-    <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{selectedImage?.title}</DialogTitle>
-        <DialogContent>
-            {selectedImage && (
-                <>
-                    <img
-                        src={`http://localhost:5180/${selectedImage.filePath}`}
-                        alt={selectedImage.title}
-                        style={{ width: '100%', height: 'auto' }}
-                    />
-                    <Typography variant="body1" style={{ marginTop: '16px' }}>
-                        {selectedImage.description}
-                    </Typography>
-                </>
-            )}
-        </DialogContent>
-    </Dialog>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>{selectedImage?.title}</DialogTitle>
+                <DialogContent>
+                    {selectedImage && (
+                        <>
+                            <img
+                                src={`http://localhost:5180/${selectedImage.filePath}`}
+                                alt={selectedImage.title}
+                                style={{ width: '100%', height: 'auto' }}
+                            />
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                {selectedImage.description}
+                            </Typography>
+                        </>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    {isAdmin && (
+                        <Button onClick={handleDeleteClick} color="error">
+                            Delete
+                        </Button>
+                    )}
+                    <Button onClick={handleClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <ConfirmDialog open={confirmOpen} setOpen={setConfirmOpen} onConfirm={handleConfirmDelete} title="Biztosan törli?" message="Ez a művelet végleges. Biztosan törölni szeretné a képet?" />
+            
         </>
     )
 }
