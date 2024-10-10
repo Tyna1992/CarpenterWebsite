@@ -1,14 +1,17 @@
 ﻿import {Box, Button, Typography, TextField, Grid, Select} from "@mui/material";
 import {useEffect, useState} from "react";
 import notify from "../Notifications/Notify.jsx";
+import GalleryTable from "./GalleryTable.jsx";
 
-function GalleryUpload() {
+function GalleryManager() {
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
     const [galleryId, setGalleryId] = useState("");
     const [galleryName, setGalleryName] = useState("");
     const [galleryList, setGalleryList] = useState([]);
     const [title, setTitle] = useState("");
+    const [error, setError] = useState(false);
+        
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,11 +22,21 @@ function GalleryUpload() {
                 console.log(data);
             } catch (e) {
                 console.error("Error fetching galleries:", e);
+                setError(true);
             }
         }
         fetchData();
     }, []);
-    
+
+    const fetchGalleries = async () => {
+        try {
+            const response = await fetch("/api/Gallery/GetAll");
+            const data = await response.json();
+            setGalleryList(data);
+        } catch (e) {
+            console.error("Error fetching galleries:", e);
+        }
+    };
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
@@ -52,6 +65,7 @@ function GalleryUpload() {
             if (response.ok) {
                 notify("Sikeres galéria létrehozás", "success");
                 setGalleryName("");
+                fetchGalleries();
             } else {
                 notify("Hiba a galéria létrehozása során", "error");
                 console.error("Error creating gallery:", response);
@@ -82,6 +96,8 @@ function GalleryUpload() {
                 setFile(null);
                 setDescription("");
                 setGalleryId("");
+                setTitle("");
+                fetchGalleries();
                 console.log(response)
             } else {
                 notify("Hiba a képfeltöltés során", "error");
@@ -93,10 +109,17 @@ function GalleryUpload() {
             notify("Hiba a képfeltöltés során", "error");
         }
     }
+    
+    const handleCancel = () => {
+        setFile(null);
+        setDescription("");
+        setGalleryId("");
+        setTitle("");
+    }
 
     return (
-        <Grid container sx={{paddingLeft: '11rem'}}>
-            <Grid item xs={12}>
+        <Grid container sx={{paddingLeft: '11rem', paddingTop: "2rem"}} spacing={2}>
+            <Grid item xs={12} md={6}>
                 <Box
                     component="form"
                     onSubmit={handleSubmit}
@@ -131,6 +154,7 @@ function GalleryUpload() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         fullWidth
+                        multiline
                     />
                     <Select
                         label="Galéria"
@@ -148,9 +172,10 @@ function GalleryUpload() {
                         )}
                     </Select>
                     <Button type="submit" variant="contained">Feltöltés</Button>
+                    <Button variant="contained" type="button" onClick={handleCancel}>Mégse</Button>
                 </Box>
             </Grid>
-            <Grid item container xs={12} spacing={2}>
+            <Grid item xs={12} md={6}>
                 <Box 
                     component="form"
                     onSubmit={handleGallerySubmit}
@@ -174,13 +199,18 @@ function GalleryUpload() {
                         onChange={(e) => setGalleryName(e.target.value)}
                         />
                     <Button variant="contained" type="submit">Létrehozás</Button>
+                    
                         
                 </Box>
             </Grid>
+            <Grid item>
+                <GalleryTable galleries={galleryList} setGalleries={setGalleryList} setError={setError} />
+            </Grid>
+            
             
         </Grid>
         
     )
 }
 
-export default GalleryUpload;
+export default GalleryManager;

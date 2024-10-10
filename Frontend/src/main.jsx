@@ -17,7 +17,7 @@ import RouteProtector from "./Components/RouteProtector/RouteProtector.jsx";
 import PriceTable from "./Components/AdminDashboard/PriceTable.jsx";
 import PartnerTable from "./Components/AdminDashboard/PartnerTable.jsx";
 import ReviewTable from "./Components/AdminDashboard/ReviewTable.jsx";
-import GalleryUpload from "./Components/AdminDashboard/GalleryUpload.jsx";
+import GalleryManager from "./Components/AdminDashboard/GalleryManager.jsx";
 
 
 
@@ -43,7 +43,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                             <Route path="adminArlistaSzerk" element={<PriceTable/>}/>
                             <Route path="adminPartnerekSzerk" element={<PartnerTable/>}/>
                             <Route path="adminErtekelesekCheck" element={<ReviewTable/>}/>
-                            <Route path="adminGaleriaSzerk" element={<GalleryUpload/>}></Route>
+                            <Route path="adminGaleriaSzerk" element={<GalleryManager/>}></Route>
                         </Route>
                     </Route>
                 </Routes>

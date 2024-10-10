@@ -1,12 +1,16 @@
-﻿import {ButtonBase, Dialog, DialogContent, DialogTitle, ImageList, ImageListItem, Typography} from "@mui/material";
+﻿import {ButtonBase, Dialog, DialogContent, DialogTitle, ImageList, ImageListItem, Typography, Button, DialogActions} from "@mui/material";
 import React, {useState} from "react";
+import ConfirmDialog from "../AdminDashboard/ConfirmDialog.jsx";
+import notify from "../Notifications/Notify.jsx";
 
-
-function GalleryImageList({imageData=[]}){
+function GalleryImageList({imageData = [], isAdmin = false, galleries, setGalleries}){
 
     const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    
 
+    
     const handleClickOpen = (image) => {
         setSelectedImage(image);
         setOpen(true);
@@ -15,6 +19,38 @@ function GalleryImageList({imageData=[]}){
         setOpen(false);
         setSelectedImage(null);
     }
+
+    const handleDeleteClick = () => {
+        setConfirmOpen(true);  
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            const response = await fetch(`/api/Image/delete/${selectedImage.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                notify("Image deleted successfully", "success");
+                const updatedGalleries = galleries.map((gallery) => ({
+                    ...gallery,
+                    images: gallery.images.filter((image) => image.id !== selectedImage.id),
+                }));
+                setGalleries(updatedGalleries);
+                setOpen(false);
+            } else {
+                notify("Error deleting image", "error");
+            }
+        } catch (error) {
+            notify("Error deleting image", "error");
+            console.error("Error:", error);
+        }
+        setConfirmOpen(false); 
+    };
+    
     
     return(
         <>
@@ -32,23 +68,35 @@ function GalleryImageList({imageData=[]}){
                 </ImageListItem>
             ))}
         </ImageList>
-    <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{selectedImage?.title}</DialogTitle>
-        <DialogContent>
-            {selectedImage && (
-                <>
-                    <img
-                        src={`http://localhost:5180/${selectedImage.filePath}`}
-                        alt={selectedImage.title}
-                        style={{ width: '100%', height: 'auto' }}
-                    />
-                    <Typography variant="body1" style={{ marginTop: '16px' }}>
-                        {selectedImage.description}
-                    </Typography>
-                </>
-            )}
-        </DialogContent>
-    </Dialog>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>{selectedImage?.title}</DialogTitle>
+                <DialogContent>
+                    {selectedImage && (
+                        <>
+                            <img
+                                src={`http://localhost:5180/${selectedImage.filePath}`}
+                                alt={selectedImage.title}
+                                style={{ width: '100%', height: 'auto' }}
+                            />
+                            <Typography variant="body1" style={{ marginTop: '16px' }}>
+                                {selectedImage.description}
+                            </Typography>
+                        </>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    {isAdmin && (
+                        <Button onClick={handleDeleteClick} color="error">
+                            Delete
+                        </Button>
+                    )}
+                    <Button onClick={handleClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <ConfirmDialog open={confirmOpen} setOpen={setConfirmOpen} onConfirm={handleConfirmDelete} title="Biztosan törli?" message="Ez a művelet végleges. Biztosan törölni szeretné a képet?" />
+            
         </>
     )
 }
