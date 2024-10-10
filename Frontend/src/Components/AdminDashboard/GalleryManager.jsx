@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import notify from "../Notifications/Notify.jsx";
 import GalleryTable from "./GalleryTable.jsx";
 
-function GalleryUpload() {
+function GalleryManager() {
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
     const [galleryId, setGalleryId] = useState("");
@@ -213,4 +213,4 @@ function GalleryUpload() {
     )
 }
 
-export default GalleryUpload;
+export default GalleryManager;
